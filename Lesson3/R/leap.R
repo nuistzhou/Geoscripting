@@ -20,11 +20,11 @@ is.leap <- function(year) {
   }
   # Returns a warning if the value is out of range (< 1582)
   else if (is.numeric(year)) {
-    return(paste("Warning:", year, "is out of the valid range."))
+    return(warning(paste(year, "is out of the valid range.")))
   }
   # Returns an error if the value is not numeric
   else {
-    return("Error: argument of class numeric expected")
+    return(warning("Error: argument of class numeric expected"))
   }
 }
 
