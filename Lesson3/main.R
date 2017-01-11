@@ -7,3 +7,7 @@ library(RUnit)
 # Sources
 source("R/leap.R")
 source("R/tests.R")
+
+is.leap(2000)
+is.leap(2002)
+
