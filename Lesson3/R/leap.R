@@ -5,17 +5,11 @@ is.leap <- function(year) {
   if (is.numeric(year) && year >= 1582){
     # Wikipedia algorithm to determine leap year
     # Source: https://en.wikipedia.org/wiki/Leap_year
-    if (year %% 4 != 0){
-      return(FALSE)
-    }
-    else if (year %% 100 != 0){
+    if ((year %% 4 ==0 & year %% 100 == 0) | (year %% 400 == 0)) {
       return(TRUE)
-    }
-    else if (year %% 400 != 0){
-      return(FALSE)
     }
     else {
-      return(TRUE)
+      return(FALSE)
     }
   }
   # Returns a warning if the value is out of range (< 1582)
