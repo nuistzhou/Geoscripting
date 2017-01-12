@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Run the terminal from Lesson4/Bash.
+#Please create a data folder in /Lesson4 to input the raster source data.
+
 echo 'Dragon Master - Rodrigo & Ping'
 echo '12 January 2016'
 echo 'Welcome to the NDVI calculator for LandSat imagery!'
