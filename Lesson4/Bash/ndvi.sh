@@ -14,5 +14,10 @@ output='../results/NDVI.tif'
 gdal_calc.py -A $input --A_band=4 -B $input --B_band=3 --outfile=$output --calc="(A.astype(float)-B)/(A.astype(float)+B)" --type='Float32'
 
 #Resamples the file to 60 m pixels
-gdal_translate -ot 'Float32' -b 1 -tr 60 60 -r 'average' $output '../results/NDVI_60m.tif'
+gdal_translate -ot 'Float32' -b 1 -tr 60 60 -r average $output '../results/NDVI_60m.tif'
+
+#Reproject resampled file to Lat/Long WGS84
+gdalwarp -t_srs 'EPSG:4326' -r cubic '../results/NDVI_60m.tif' '../results/NDVI_60m_reproj.tif'
+
+
 
