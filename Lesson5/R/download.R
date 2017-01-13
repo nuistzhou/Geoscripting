@@ -26,4 +26,4 @@ date_acquisition <- function(scene_name){
   day_year <- substr(filename,14,16)
   # Returns the year and julian day of acquisition
   return(c(year,day_year))
-}
+}             
