@@ -21,9 +21,9 @@ download <- function(URL){
 date_acquisition <- function(scene_name){
   # Uses the filename to capture the year of acquisition according to LANDSAT scene name convention
   # http://gisgeography.com/landsat-file-naming-convention/
-  year <- regexpr('(?:L.{8})(.{4})(?:.*\\.tar\\.gz)', filename)
+  year <- substr(filename,10,13)
   # Uses the same process to capture the julian year of acquisition
-  day_year <- regexpr('(?:L.{12})(.{3})(?:.*\\.tar\\.gz)', filename)
+  day_year <- substr(filename,14,16)
   # Returns the year and julian day of acquisition
   return(c(year,day_year))
 }
