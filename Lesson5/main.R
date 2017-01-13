@@ -3,6 +3,7 @@
 # 13/01/2017
 
 #Import necessary library
+source('R/down_untar.R')
 library(raster)
 source('R/ndvi_diff.R')
 source('R/download.R')
@@ -25,30 +26,33 @@ LC8_brick <- stack(LC8_files)
 #print(LT5, 'was acquired in',dateLT5[1],'/',dateLT5[2])
 
 #Get fmask layers
-LT5_fmask <-LT5_brick[[1]]
-LC8_fmask <-LC8_brick[[1]]
+LT5_fmask <-LT5_brick[1]
+LC8_fmask <-LC8_brick[1]
 
 LT5_cloudfree <- cloud2NA(LT5_brick, LT5_fmask)
 LC8_cloudfree <- cloud2NA(LC8_brick, LC8_fmask)
 
 #Remove extreme abnormal values
-LT5_cloudfree[LT5_cloudfree > 1 ] <- 1
-LT5_cloudfree[LT5_cloudfree < 0 ] <- 0
-
-LC8_cloudfree[LC8_cloudfree  > 1 ] <- 1
-LC8_cloudfree[LC8_cloudfree < 0 ] <- 0
+# LT5_cloudfree[LT5_cloudfree > 1 ] <- 1
+# LT5_cloudfree[LT5_cloudfree < 0 ] <- 0
+# 
+# LC8_cloudfree[LC8_cloudfree  > 1 ] <- 1
+# LC8_cloudfree[LC8_cloudfree < 0 ] <- 0
 
 
 #set extent
-LT5_i <- intersect(LT5_cloudfree, LC8_cloudfree)
-LC8_i <- intersect(LC8_cloudfree,LT5_i)
+crop_mask <- intersect(LT5_cloudfree, LC8_cloudfree)
+LC8_i <- crop(LC8_cloudfree,crop_mask)
+LT5_i <- crop(LT5_cloudfree,crop_mask)
 
 #NDVI dif
-<<<<<<< HEAD
 
 NDVI_diff <- calc(c(LC8_i,LT5_i,LC8_brick[6],LC8_brick[5],LT5_brick[7],LT5_brick[6]),fun = ndvi_diff)
 
-NDVI_diff <- ndvi_diff(LC8_i,LT5_i,6,5,7,6)
+# NDVI_diff <- ndvi_diff(LC8_i,LT5_i,6,5,7,6)
+a <- ndvi_diff(LC8_i,LT5_i,6,5,7,6)
+
+
 LT5_files
 LC8_files
 
@@ -58,10 +62,3 @@ LC8_files
 
 
 
-
-
-#NDVI changes over years
-ndvi_diff <- calc(input1=, input2= )
-=======
-NDVI_diff <- ndvi_diff(LC8_i,LT5_i)
->>>>>>> origin/master
