@@ -10,7 +10,7 @@ LT5 <- download('https://www.dropbox.com/s/akb9oyye3ee92h3/LT51980241990098-SC20
 #Make brick
 LT5_files <- list.files(path = paste('data/',LT5, sep=''), pattern = '*.tif', full.names = TRUE)
 LC8_files <- list.files(path = paste('data/',LC8, sep=''), pattern = '*.tif', full.names = TRUE)
-LT5_brick <- brick(LT5_files)
+LT5_brick <- stack(LT5_files)
 LC8_brick <- brick(LC8_files)
 
 #Prints acquisition date
@@ -24,10 +24,14 @@ LC8_fmask <-LC8_brick[[1]]
 LT5_cloudfree <- cloud2NA(LT5_brick, LT5_fmask)
 LC8_cloudfree <- cloud2NA(LC8_brick, LC8_fmask)
 
+#set extent
+LT5_i <- intersect(LT5_cloudfree, LC8_cloudfree)
+LC8_i <- intersect(LC8_cloudfree,LT5_i)
 
 
 #NDVI dif
 
+NDVI_diff <- ndvi_diff(LC8_i,LT5_i,)
 
 LT5_files
 LC8_files
