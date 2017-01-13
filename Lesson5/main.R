@@ -36,4 +36,4 @@ LT5_i <- intersect(LT5_cloudfree, LC8_cloudfree)
 LC8_i <- intersect(LC8_cloudfree,LT5_i)
 
 #NDVI dif
-NDVI_diff <- ndvi_diff(LC8_i,LT5_i,)
+NDVI_diff <- ndvi_diff(LC8_i,LT5_i)
