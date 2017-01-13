@@ -11,7 +11,7 @@ LT5 <- download('https://www.dropbox.com/s/akb9oyye3ee92h3/LT51980241990098-SC20
 LT5_files <- list.files(path = paste('data/',LT5, sep=''), pattern = '*.tif', full.names = TRUE)
 LC8_files <- list.files(path = paste('data/',LC8, sep=''), pattern = '*.tif', full.names = TRUE)
 LT5_brick <- stack(LT5_files)
-LC8_brick <- brick(LC8_files)
+LC8_brick <- stack(LC8_files)
 
 #Prints acquisition date
 print(LC8, 'was acquired in',date_acquisition(LC8)[1],'/',date_acquisition(LC8)[2])
@@ -24,6 +24,14 @@ LC8_fmask <-LC8_brick[[1]]
 LT5_cloudfree <- cloud2NA(LT5_brick, LT5_fmask)
 LC8_cloudfree <- cloud2NA(LC8_brick, LC8_fmask)
 
+#Remove extreme abnormal values
+LT5_cloudfree[LT5_cloudfree > 1 ] <- 1
+LT5_cloudfree[LT5_cloudfree < 0 ] <- 0
+
+LC8_cloudfree[LC8_cloudfree  > 1 ] <- 1
+LC8_cloudfree[LC8_cloudfree < 0 ] <- 0
+
+
 #set extent
 LT5_i <- intersect(LT5_cloudfree, LC8_cloudfree)
 LC8_i <- intersect(LC8_cloudfree,LT5_i)
@@ -31,15 +39,15 @@ LC8_i <- intersect(LC8_cloudfree,LT5_i)
 
 #NDVI dif
 
-NDVI_diff <- ndvi_diff(LC8_i,LT5_i,)
+NDVI_diff <- calc(c(LC8_i,LT5_i,LC8_brick[6],LC8_brick[5],LT5_brick[7],LT5_brick[6]),fun = ndvi_diff)
 
+NDVI_diff <- ndvi_diff(LC8_i,LT5_i,6,5,7,6)
 LT5_files
 LC8_files
 
 
 
 #Remove cloud
-
 
 
 
