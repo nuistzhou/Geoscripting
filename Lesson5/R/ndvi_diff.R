@@ -1,3 +1,7 @@
+# Rodrigo Almeida, Ping
+# Team Dragon Masters
+# 13/01/2017
+
 # calculate NDVI difference between 2 date
 diff_ndvi <- function(input1,input2,r1,r2,i1,i2){
   #RED band to be 1st and IR to be 2nd
