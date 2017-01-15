@@ -3,13 +3,12 @@
 # 13/01/2017
 
 #Import necessary library
-#source('R/down_untar.R')
 library('raster')
 source('R/ndvi_diff.R')
 source('R/download.R')
 source('R/cloud.R')
 
-#Download archives and untar
+#Download archives and untar (has to be executed in Linux, as it doesn't work properly in Windows)
 LC8 <- download('https://www.dropbox.com/s/i1ylsft80ox6a32/LC81970242014109-SC20141230042441.tar.gz?dl=1')
 LT5 <- download('https://www.dropbox.com/s/akb9oyye3ee92h3/LT51980241990098-SC20150107121947.tar.gz?dl=1')
 
@@ -21,30 +20,26 @@ LT5_stack <-  subset(stack(LT5_files),c(1,6,7))
 ##Fmask layer is 1st in list, Red is band 4(5th in list), infra red is band 5(6th in list) in landsat 8
 LC8_stack <- subset(stack(LC8_files),c(1,5,6))
 
-#Prints acquisition date 
-date_LC8 <- date_acquisition(LC8)
-date_LT5 <- date_acquisition(LT5)
-# print(LC8, 'was acquired in',date_LC8[1],'/',date_LC8[2])
-# print(LT5, 'was acquired in',date_LT5[1],'/',date_LT5[2])
-
 #set extent
 crop_mask <- intersect(LT5_stack, LC8_stack)
 LC8_extented <- crop(LC8_stack,crop_mask)
 LT5_extented <- crop(LT5_stack,crop_mask)
 
-
-#Get fmask layers
-# LT5_fmask <- LT5_extented[[1]]
-# LC8_fmask <- LC8_extented[[1]]
-# fmask layers is the 1st layer of each statck
-LT5_cloudfree <- cloud2NA(LT5_extented, LT5_extented[[1]])
-LC8_cloudfree <- cloud2NA(LC8_extented, LC8_extented[[1]])
+# Remove clouds on all layers and drop fmask layer
+# Fmask layers is the 1st layer of each statck
+LT5_cloudfree <- dropLayer(cloud2NA(LT5_extented, LT5_extented[[1]]),1)
+LC8_cloudfree <- dropLayer(cloud2NA(LC8_extented, LC8_extented[[1]]),1)
 
 
-#NDVI dif
+#Calculate NDVI dif
 NDVI_diff <- ndvi_diff(LC8_cloudfree,LT5_cloudfree)
-#NDVI_diff <- calc(c(LC8_cloudfree,LT5_cloudfree), fun = ndvi_diff)
 
-# plot(NDVI_diff[[1]])
-# plot(NDVI_diff[[2]])
-plot(NDVI_diff[[3]], paste0('NDVI difference between',date_LT5,date_LC8))
+#Get data acquisition date 
+date_LC8 <- date_acquisition(LC8)
+date_LT5 <- date_acquisition(LT5)
+
+#Plot NDVI of 2 dates and also changes over time
+plot(NDVI_diff[[1]], main = paste('NDVI of Date',date_LC8))
+plot(NDVI_diff[[2]], main = paste('NDVI of Date',date_LT5))
+plot(NDVI_diff[[3]], main = paste('NDVI change between',paste(date_LT5,date_LC8,sep = ' and ')))
+
