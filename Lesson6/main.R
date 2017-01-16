@@ -36,10 +36,6 @@ places_in_industrial <- gIntersection(places,industrial_buffer, id=as.character(
 # Joined other data to intersection result by osm_id, creates spatial point data frame
 places_in_industrial <- places[places$osm_id == rownames(places_in_industrial@coords),]
 
-# Creates plot for the buffer, places and city
-plot(industrial_buffer, col = 'blue')
-plot(places_in_industrial,add = T, col = 'orange')
-plot(places,add = T, col = 'red')
-box()
+
 
 
