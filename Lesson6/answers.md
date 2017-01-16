@@ -1,10 +1,10 @@
 #Intro2Vector Questions
 ##**Question 1**: See ?CRS and have a look at the help.
 
-#**Question 2**: What is the the difference between the objects mypoints and mypointsdf?
+##**Question 2**: What is the the difference between the objects mypoints and mypointsdf?
 mypoints in a points object without any data associated, mypointsdf has a data frame associated which enable data to be added to each point besides the lat/long.
 
-#**Question 3**: What is the difference between Line and Lines?
+##**Question 3**: What is the difference between Line and Lines?
 Line creates an object of type Line (a single line, taking only a list of coordinates) while Lines takes a list of Line and creates a single Lines object.
 
 ##**Question 4**: Which plotting options do you prefer? E.g spplot or plot?
