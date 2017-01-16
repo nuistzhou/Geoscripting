@@ -5,7 +5,7 @@
 
 library(tools)
 
-# Download files
+# Download files function
 download <- function(URL){
   
   # Creates data directory if not present
