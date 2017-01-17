@@ -25,3 +25,5 @@ download <- function(URL){
   # Returns dataset name
   return(dataset_name)
 }
+
+## Add if to support tar and zip with the same function
