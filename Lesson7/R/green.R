@@ -14,6 +14,7 @@ green_data <- function(r_stack, regions){
   return(result)
 }
 
+# Find out the greenest district
 green_district <- function(dataframe, period){
   id <- which.max(dataframe[[period]])
   if ('NAME_2' %in% colnames(dataframe)) {
