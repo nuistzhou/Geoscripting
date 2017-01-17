@@ -17,6 +17,7 @@ green_data <- function(r_stack, regions){
 # Find out the greenest district
 green_district <- function(dataframe, period){
   id <- which.max(dataframe[[period]])
+  # Use if condition to accept both municipality and province administrative as input
   if ('NAME_2' %in% colnames(dataframe)) {
     return(dataframe[id,]$NAME_2)
     
