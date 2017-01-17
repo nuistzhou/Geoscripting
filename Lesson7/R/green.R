@@ -14,12 +14,13 @@ green_data <- function(r_stack, regions){
   return(result)
 }
 
-green_city <- function(dataframe, period){
+green_district <- function(dataframe, period){
   id <- which.max(dataframe[[period]])
-  return(dataframe[id,]$NAME_2)
-}
-
-green_province <- function(dataframe, period){
-  id <- which.max(dataframe[[period]])
-  return(dataframe[id,]$NAME_1)
+  if ('NAME_2' %in% colnames(dataframe)) {
+    return(dataframe[id,]$NAME_2)
+    
+  } else {
+    return(dataframe[id,]$NAME_1)
+    
+  }
 }
