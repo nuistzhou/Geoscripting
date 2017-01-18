@@ -5,10 +5,11 @@ date: "January 18, 2017"
 output: html_document
 ---
 
-read_chunk!!!
+read_chunk('main.R')
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+read_chunk('main.R')
 ```
 
 ## R Markdown

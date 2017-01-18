@@ -10,6 +10,10 @@ for (name in list.files('data/', full.names = T)){
   load(name)
 }
 
+#REMOVE LATER
+load('data/trainingPoly.rda')
+
+
 # Clean up data
 vcfGewata[vcfGewata>100 | vcfGewata<0 ] <- NA
 GewataB1[GewataB1>700 | GewataB1 <200] <- NA
@@ -49,14 +53,24 @@ gewataDF$VCF_predict <- VCF_pred
 par(mfrow = c(3,1))
 plot(gewata$VCF, main = 'VCF')
 plot(gewata$VCF_predict, main = 'Predicted VCF')
-plot(gewata$VCF_predict - gewata$VCF, main = 'VCF difference')
+
+# Calculates and displays the difference
+gewata$VCF_diff <- gewata$VCF_predict - gewata$VCF
+plot(gewata$VCF_diff, main = 'VCF difference')
 par(mfrow = c(1,1))
 
-# Calculate RMSE
+# Calculate global RMSE
 RMSE <- sqrt(sum((gewataDF$VCF_predict - gewataDF$VCF)^2,na.rm = T)/nrow(gewataDF))
-print(RMSE)
+print(paste('The global RMSE is', RMSE))
 
+# Prepare training data
+trainingPoly@data$Code <- as.numeric(trainingPoly@data$Class)
+trainingRaster <- rasterize(trainingPoly, gewata, field = 'Code')
 
+# Create squared difference
+gewata$VCF_diff2 <- (gewata$VCF_predict - gewata$VCF)^2
 
-
-
+# Make zonal statistics
+RMSE_classes <- zonal(gewata$VCF_diff2, trainingRaster, fun = mean)
+RMSE_classes[,2] <- sqrt(RMSE_classes[,2])
+print(RMSE_classes)
