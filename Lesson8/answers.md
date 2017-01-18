@@ -3,7 +3,7 @@
 
 ##Question 2: Since the VCF layer included NAs (which have also been excluded in our results) and scores relatively low according to the mean accuracy decrease criterion, try to construct an alternate Random Forest model as above, but excluding this layer. What effect does this have on the overall accuracy of the results (hint: compare the confusion matrices of the original and new outputs). What effect does leaving this variable out have on the processing time (hint: use system.time())?
 
-| time | user | system | elapsed |  unit: second
+| time | user | system | elapsed |
 | ------ | ------ | ------ | ----- |
 | !VCF | 10.20 | 0.34 | 10.55 |
 | VCF | 12.50 | 0.27 | 12.76 |
