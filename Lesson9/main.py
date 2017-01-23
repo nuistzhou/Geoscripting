@@ -1,23 +1,26 @@
+#Loading modules
 from osgeo import ogr, osr
 import os
-
+#Changing working directory
 os.chdir(os.path.dirname(__file__))
 
+# Create driver
 driverName = "ESRI Shapefile"
 drv = ogr.GetDriverByName( driverName )
 
+# Define path and names
 a_file = 'data/points.shp'
 layername = 'a_layer'
-
+# Create shapefile
 ds = drv.CreateDataSource(a_file)
-
+# Give geo reference
 spatialReference = osr.SpatialReference()
 spatialReference.ImportFromEPSG(4326)
 
+# Create layer
 layer = ds.CreateLayer(layername, spatialReference, ogr.wkbPoint)
-
+# Export to a kml file
 kml_file = ogr.Open('data/points.kml')
-
 for lay in kml_file:
     for feat in lay:
         geom = feat.GetGeometryRef()
