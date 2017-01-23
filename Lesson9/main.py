@@ -1,7 +1,7 @@
 from osgeo import ogr, osr
 import os
 
-os.chdir('/home/ubuntu/userdata/GeoscriptingGitSARA/Lesson9/')
+os.chdir(os.path.dirname(__file__))
 
 driverName = "ESRI Shapefile"
 drv = ogr.GetDriverByName( driverName )
