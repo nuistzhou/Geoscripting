@@ -1,2 +1,2 @@
 *1.Question 1: What is the CRS the image will be reprojected from?*  
-   From __WGS 84__
+   __From WGS 84, EPSG:7030__
