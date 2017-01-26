@@ -7,7 +7,7 @@
 dictionary
 
 3.why do we code like: search_results['statuses']?  
-Because the 'search_results' is a dictionary, we need use index to get detailed information we want.
+Because the 'search_results' is a dictionary, we need use keys to get detailed information we want.
 
 4.what datastructure is result?  
 It is dictionary
