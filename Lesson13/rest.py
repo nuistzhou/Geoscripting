@@ -23,7 +23,7 @@ OAUTH_TOKEN_SECRET = 	'XRy2YdXFR6FX9xsSou0Rwno8TgWVVsDdALtqens2BbpJR'
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 # search tweets 25 km of the center of Lisbon
-search_results = twitter.search(q= '#lisbon', geocode = '38.707587,-9.136502,25km', count = 180)
+search_results = twitter.search(q= '#lisbon',lang='en', geocode = '38.707587,-9.136502,25km', count = 1000)
 
 features = []
 # parsing out 
@@ -52,12 +52,16 @@ geojson.dump(collection, fl)
 fl.close()
 
 # uses folium to plot the points in the map
-geo_path = r'tweets.geojson'
 lis_map = folium.Map(location=[38.707587,-9.136502],
                    tiles='openstreetmap', zoom_start=12)
 f = collection['features']
 for feat in f:
-    folium.Marker(list(feat['geometry']['coordinates'])).add_to(lis_map)
-folium.map.Marker([-9.13333, 38.7167]).add_to(lis_map)
-lis_map.geo_json(geo_path=geo_path)
+    if feat['properties']['emotion'] == 'neg':
+        c = 'red'
+    elif feat['properties']['emotion'] == 'neutral':
+        c = 'blue'
+    else:
+        c = 'green'
+    folium.Marker(list(feat['geometry']['coordinates'])[::-1], popup = feat['properties']['tweettext'], icon = folium.Icon(color=c,icon='info-sign') ).add_to(lis_map)
+lis_map
 lis_map.save('lis_map.html')
