@@ -11,3 +11,8 @@ Because the 'search_results' is a dictionary, we need use keys to get detailed i
 
 4.what datastructure is result?  
 It is dictionary
+
+5.have a look at the place object at https://dev.twitter.com/overview/api/tweets. What does Nullable mean?  
+Meaning is not associated a place.
+6.what is the meaning of if tweet['place'] != None: and why do we need to code it like this?  
+Because we want to harvest tweets whichi have locations.
