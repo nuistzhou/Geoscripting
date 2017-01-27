@@ -15,9 +15,9 @@ import requests
 
 # codes to access twitter API. 
 APP_KEY = 'pNkSd6deMzM0qqsINoF34Fhhi'
-APP_SECRET = 	'VxmaFUlp4O94pvby8AQ3QJD37WHqByxw4oHLMfriJmn0S7anzw'
+APP_SECRET = 	''
 OAUTH_TOKEN = '55011261-S1KE8sVU6jY16yw7SWNGhsCxxKVOfd2k2Kl9yJt9q'
-OAUTH_TOKEN_SECRET = 	'XRy2YdXFR6FX9xsSou0Rwno8TgWVVsDdALtqens2BbpJR'
+OAUTH_TOKEN_SECRET = 	''
 
 # initiating Twython object 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
